@@ -8,28 +8,130 @@
 
 public class HeapSort {
 
-    // organize heap
-    public static int[] organize(int[] array) {
+    private static int sortedElements = 0;
 
-        // for every element from i = 0 to array.length
 
-            // check if any child is bigger.
-            // then swap with bigger child
-                // swap that child to the top
-                // (check that child's parent)
+    // sorting:
+    public static int[] sort(int[] array) {
+
+        // organize the whole array as a heap
+        heapify(array);
+
+        int indexOfLastElement = array.length - 1;
+
+
+        while (sortedElements < array.length) {
+
+            swapChildWithParent(array, indexOfLastElement, array[0]);   // not exactly "child-parent" swap but whatever :)
+
+            sortedElements++;           // lock the sorted element
+
+            heapifySubTree(array, 0);    // restore order
+
+        }
+
 
         return array;
     }
 
 
+    // organize heap (largest element on top of the tree)  ( Max-heapify )
+    public static int[] heapify(int[] array) {
+
+        int lastSubTree = findParentIndex(array.length - 1) + 1;
+        int currentSubTree = lastSubTree;
+
+        // for every sub-Tree
+        for (int t = currentSubTree; t > 0; t--) {
+            // heapify subtree
+            heapifySubTree(array, currentSubTree);          // parent index   =    tree index - 1
+
+
+        }
+
+    return array;
+    }
+
+
+    // check subtree for conflict
+    private static boolean checkForConflict(int[] array, int parentIndex) {
+
+        int leftChildIndex = findLeftChildIndex(parentIndex);
+        int rightChildIndex = findRightChildIndex(parentIndex);
+
+        // if there exists right child (and it is within unsorted array...
+        if(!(rightChildIndex >= array.length - 1 - sortedElements)) {
+
+            //... and it is larger than parent ... then there is conflict (and we will need to sort sub-tree)
+            if (array[rightChildIndex] > array[parentIndex]) {
+                return true;
+            }
+        }
+
+        // if there exists left child (and it is within unsorted array...
+        if (!(leftChildIndex >= array.length - 1 - sortedElements)) {
+
+            //... and it is larger than parent ... then there is conflict (and we will need to sort sub-tree)
+            if( array[leftChildIndex] > array[parentIndex] ) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    // heapify sub-tree recursively to fix conflicts asap
+    private static int[] heapifySubTree(int[] array, int parentIndex) {
+
+        int leftChildIndex = findLeftChildIndex(parentIndex);
+        int rightChildIndex = findRightChildIndex(parentIndex);
+
+        // if we're trying to heapify elements that are already sorted... stop! (dont heapify this subtree)
+        if (leftChildIndex >= array.length + sortedElements) {                          // could be bugged
+            return array;
+        }
+
+        // if we're at last tree with only one child ( left child )
+        if (rightChildIndex >= array.length + sortedElements ) {                        // could be bugged
+            // compare only child to parent and swap
+            if ( array[leftChildIndex] > array[parentIndex] ) {
+                swapChildWithParent(array, leftChildIndex, parentIndex);
+            }
+        } else {    // we're looking at regular sub-tree with 1 parent and 2 children
+
+            // if left child >= right child > parent
+            if ( (array[leftChildIndex] >= array[rightChildIndex]) && (array[leftChildIndex] > array[parentIndex])){
+                swapChildWithParent(array, leftChildIndex, parentIndex);
+
+                // fix potential conflicts
+                if(checkForConflict(array, parentIndex * 2 + 1)) {
+                    heapifySubTree(array, parentIndex * 2 + 1);
+                }
+
+            } else if ((array[rightChildIndex] > array[leftChildIndex]) && (array[rightChildIndex] > array[parentIndex])) {
+                // if right child > left child > parent
+                swapChildWithParent(array, rightChildIndex, parentIndex);
+
+                // fix potential conflicts
+                if (checkForConflict(array, parentIndex * 2 + 2)) {
+                    heapifySubTree(array, parentIndex * 2 + 2);
+                }
+            }
+        }
+        return array;
+
+    }
+
 
     // find left child's index
-    private static int leftChildIndex(int parentIndex) {
+    private static int findLeftChildIndex(int parentIndex) {
+
         return  2 * parentIndex + 1;
     }
 
     // find right child's index
-    private static int rightChildIndex(int parentIndex) {
+    private static int findRightChildIndex(int parentIndex) {
         return  2 * parentIndex + 2;
     }
 
@@ -49,6 +151,13 @@ public class HeapSort {
         }
 
         return parentIndex;
+    }
+
+    // check if child is left child
+    private static boolean childIsRightChild(int childIndex) {
+        if (childIndex % 2 == 0) {
+            return true;
+        } else return false;
     }
 
     // swap child-parent values
@@ -81,7 +190,7 @@ public class HeapSort {
 
 
     // print heap
-    public static void printHeap(int[] array) {
+    public static void printArrayAsHeap(int[] array) {
         System.out.println();
         System.out.println("printing array as a binary heap tree:");
 
@@ -103,7 +212,7 @@ public class HeapSort {
         }
 
 
-
+        System.out.println();
     }
 
 
@@ -116,13 +225,6 @@ public class HeapSort {
     }
 
 
-    // sorting:
-    // remove grandparent  (put it into sorted part of array)
-    // organize heap
-    // ...
-    private static int[] sort(int[] array) {
 
-        return array;
-    }
 
 }

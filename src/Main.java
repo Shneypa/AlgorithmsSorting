@@ -44,6 +44,11 @@
 
         значит, если элементов n, то рядов log 2 ( n + 1 )
 
+
+    8. в классе HeapSort я постоянно посылаю весь массив по разным функциям.
+        это не влияет плохо на производительность?
+
+
 */
 
 public class Main {
@@ -59,20 +64,26 @@ public class Main {
     public static void main(String[] args) {
 
         // create array
-        int[] array = ArrayManager.generateRandomArray(32);
+        int[] array = ArrayManager.generateRandomArray(3);
 
         // print unsorted array
         System.out.println("Unsorted array:");
         ArrayManager.print(array);
 
+
+        // print unsorted array as a heap:
+        System.out.println("Unsorted array as a heap: ");
+        HeapSort.printArrayAsHeap(array);
+
         // APPLY SORTING ALGORITHM
-        SelectionSort.sort(array);
+        array = HeapSort.heapify(array);
 
         // print sorted array
         System.out.println();
         System.out.println("Sorted array:");
         ArrayManager.print(array);
 
+/*
         // print how many operations it took
         System.out.println();
         System.out.println("Operations: " + Main.operations);
@@ -82,7 +93,7 @@ public class Main {
         System.out.println("Array as heap:  number of rows (tree depth): " + HeapSort.findNumberOfRowsInHeap(array));
         System.out.println();
 
-
+        */
 
         // TODO: Automate time complexity table
 
