@@ -1,7 +1,8 @@
 
 /*
- * Created by Пользователь on 23.03.2015.
- */
+ * Find Usages  ALT + F7
+ *
+ * 2^2  is not correct Java form.   Java form is    Math.pow(2,2)
 
 
 /*
@@ -30,6 +31,19 @@
     6. Если  я хочу сгруппировать BubbleSort.java, InsertionSort.java, SelectionSort.java,
     мне надо их в новую папку кинуть или в ноый package?
     И как правильно сделать это чтобы классы друг друга не потеряли?
+
+
+
+    7. Как вычислить в бинарном дереве ( Heap ) количество рядов ( глубину дерева )
+
+        например, если ряда 3, то элементов 7:
+
+                                             1
+                                            1 1
+                                           1 1 1 1
+
+        значит, если элементов n, то рядов log 2 ( n + 1 )
+
 */
 
 public class Main {
@@ -45,13 +59,13 @@ public class Main {
     public static void main(String[] args) {
 
         // create array
-        int[] array = ArrayManager.generateRandomArray(10);
+        int[] array = ArrayManager.generateRandomArray(32);
 
         // print unsorted array
         System.out.println("Unsorted array:");
         ArrayManager.print(array);
 
-        // apply sorting algorithm
+        // APPLY SORTING ALGORITHM
         SelectionSort.sort(array);
 
         // print sorted array
@@ -59,10 +73,18 @@ public class Main {
         System.out.println("Sorted array:");
         ArrayManager.print(array);
 
+        // print how many operations it took
         System.out.println();
         System.out.println("Operations: " + Main.operations);
+        System.out.println();
 
-        // TODO: Automate n N table
+        // calculate number of rows in a heap
+        System.out.println("Array as heap:  number of rows (tree depth): " + HeapSort.findNumberOfRowsInHeap(array));
+        System.out.println();
+
+
+
+        // TODO: Automate time complexity table
 
     }
 }
