@@ -35,7 +35,7 @@ public class ArrayManager {
             }
         }
         System.out.println();
-        System.out.println();
+
     }
 
 

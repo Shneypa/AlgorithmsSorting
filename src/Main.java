@@ -49,6 +49,11 @@
         это не влияет плохо на производительность?
 
 
+    9. как настроить читабельность кода?
+
+    10. при дебаггинге IntelliJ каждый раз создает новый процесс Main.
+    а мне надо, чтобы она просто перезапускала. (сейчас приходится вручную нажимать каждый раз  Stop 'Main'
+
 */
 
 public class Main {
@@ -56,7 +61,7 @@ public class Main {
     public static int operations = 0;
     public static boolean countOperations = true;
 
-    public static final boolean debugMessagesOn = false;
+    public static final boolean debugMessagesOn = true;
     public static final boolean showIterations = false;
 
 
@@ -72,14 +77,12 @@ public class Main {
 
 
         // print unsorted array as a heap:
-        System.out.println("Unsorted array as a heap: ");
         HeapSort.printArrayAsHeap(array);
 
         // APPLY SORTING ALGORITHM
-        array = HeapSort.heapify(array);
+        array = HeapSort.sort(array);
 
         // print sorted array
-        System.out.println();
         System.out.println("Sorted array:");
         ArrayManager.print(array);
 

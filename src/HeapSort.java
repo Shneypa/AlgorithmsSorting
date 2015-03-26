@@ -14,17 +14,24 @@ public class HeapSort {
     // sorting:
     public static int[] sort(int[] array) {
 
+        if (Main.debugMessagesOn) System.out.println("sort function called");
+
         // organize the whole array as a heap
         heapify(array);
+
+        if (Main.debugMessagesOn) printArrayAsHeap(array);
 
         int indexOfLastElement = array.length - 1;
 
 
         while (sortedElements < array.length) {
 
-            swapChildWithParent(array, indexOfLastElement, array[0]);   // not exactly "child-parent" swap but whatever :)
+            swapChildWithParent(array, indexOfLastElement, 0);   // swap root and last element
+
+            if (Main.debugMessagesOn) printArrayAsHeap(array);
 
             sortedElements++;           // lock the sorted element
+            indexOfLastElement--;
 
             heapifySubTree(array, 0);    // restore order
 
@@ -38,13 +45,15 @@ public class HeapSort {
     // organize heap (largest element on top of the tree)  ( Max-heapify )
     public static int[] heapify(int[] array) {
 
+        if (Main.debugMessagesOn) System.out.println("heapify function called");
+
         int lastSubTree = findParentIndex(array.length - 1) + 1;
         int currentSubTree = lastSubTree;
 
-        // for every sub-Tree
+        // for every sub-Tree from last to first...
         for (int t = currentSubTree; t > 0; t--) {
-            // heapify subtree
-            heapifySubTree(array, currentSubTree);          // parent index   =    tree index - 1
+            // ... heapify subtree
+            heapifySubTree(array, currentSubTree - 1);          // parent index   =    tree index - 1
 
 
         }
@@ -53,47 +62,23 @@ public class HeapSort {
     }
 
 
-    // check subtree for conflict
-    private static boolean checkForConflict(int[] array, int parentIndex) {
 
-        int leftChildIndex = findLeftChildIndex(parentIndex);
-        int rightChildIndex = findRightChildIndex(parentIndex);
-
-        // if there exists right child (and it is within unsorted array...
-        if(!(rightChildIndex >= array.length - 1 - sortedElements)) {
-
-            //... and it is larger than parent ... then there is conflict (and we will need to sort sub-tree)
-            if (array[rightChildIndex] > array[parentIndex]) {
-                return true;
-            }
-        }
-
-        // if there exists left child (and it is within unsorted array...
-        if (!(leftChildIndex >= array.length - 1 - sortedElements)) {
-
-            //... and it is larger than parent ... then there is conflict (and we will need to sort sub-tree)
-            if( array[leftChildIndex] > array[parentIndex] ) {
-                return true;
-            }
-        }
-
-        return false;
-
-    }
 
     // heapify sub-tree recursively to fix conflicts asap
     private static int[] heapifySubTree(int[] array, int parentIndex) {
+
+        if (Main.debugMessagesOn) System.out.println("heapifySubTree function called");
 
         int leftChildIndex = findLeftChildIndex(parentIndex);
         int rightChildIndex = findRightChildIndex(parentIndex);
 
         // if we're trying to heapify elements that are already sorted... stop! (dont heapify this subtree)
-        if (leftChildIndex >= array.length + sortedElements) {                          // could be bugged
-            return array;
+        if (leftChildIndex >= array.length - sortedElements) {                          // could be bugged
+           return array;
         }
 
         // if we're at last tree with only one child ( left child )
-        if (rightChildIndex >= array.length + sortedElements ) {                        // could be bugged
+        if (rightChildIndex >= array.length - sortedElements ) {                        // could be bugged
             // compare only child to parent and swap
             if ( array[leftChildIndex] > array[parentIndex] ) {
                 swapChildWithParent(array, leftChildIndex, parentIndex);
@@ -123,6 +108,35 @@ public class HeapSort {
 
     }
 
+    // check subtree for conflict
+    private static boolean checkForConflict(int[] array, int parentIndex) {
+
+        if (Main.debugMessagesOn) System.out.println("checkForConflict function called");
+
+        int leftChildIndex = findLeftChildIndex(parentIndex);
+        int rightChildIndex = findRightChildIndex(parentIndex);
+
+        // if there exists right child (and it is within unsorted array...
+        if(!(rightChildIndex >= array.length - 1 - sortedElements)) {
+
+            //... and it is larger than parent ... then there is conflict (and we will need to sort sub-tree)
+            if (array[rightChildIndex] > array[parentIndex]) {
+                return true;
+            }
+        }
+
+        // if there exists left child (and it is within unsorted array...
+        if (!(leftChildIndex >= array.length - 1 - sortedElements)) {
+
+            //... and it is larger than parent ... then there is conflict (and we will need to sort sub-tree)
+            if( array[leftChildIndex] > array[parentIndex] ) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 
     // find left child's index
     private static int findLeftChildIndex(int parentIndex) {
@@ -200,7 +214,7 @@ public class HeapSort {
 
         for (int i = 0; i < array.length; i++) {
 
-            if(Main.debugMessagesOn) System.out.println("i = " + i + " row = " + row + " lastIndexInRow = " + lastIndexInRow);
+            // if(Main.debugMessagesOn) System.out.println("i = " + i + " row = " + row + " lastIndexInRow = " + lastIndexInRow);
 
             System.out.print(array[i] + " ");
 
