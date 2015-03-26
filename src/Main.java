@@ -58,33 +58,39 @@
 
 public class Main {
 
+    public static final int ARRAY_LENGTH = 100;           // change this value to play around with array size.
+
+    //              utility variables:
     public static int operations = 0;
     public static boolean countOperations = true;
 
-    public static final boolean debugMessagesOn = true;
+    public static final boolean debugMessagesOn = false;
     public static final boolean showIterations = false;
-
+                                                        //
 
 
     public static void main(String[] args) {
 
         // create array
-        int[] array = ArrayManager.generateRandomArray(3);
+        int[] array = ArrayManager.generateRandomArray(ARRAY_LENGTH);
+        //int[] array = {3,1,3,4,2,8,11,12,5,6};                      // manual array for debugging
 
         // print unsorted array
         System.out.println("Unsorted array:");
         ArrayManager.print(array);
-
-
         // print unsorted array as a heap:
         HeapSort.printArrayAsHeap(array);
 
-        // APPLY SORTING ALGORITHM
+        // *** APPLY SORTING ALGORITHM ***
         array = HeapSort.sort(array);
 
         // print sorted array
+        System.out.println();
         System.out.println("Sorted array:");
         ArrayManager.print(array);
+        // print sorted array as a heap:
+        HeapSort.printArrayAsHeap(array);
+
 
 /*
         // print how many operations it took

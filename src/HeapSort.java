@@ -9,15 +9,17 @@
 public class HeapSort {
 
     private static int sortedElements = 0;
+    private static int heapifySubTreeFunctionCallCounter = 0;
 
 
     // sorting:
     public static int[] sort(int[] array) {
 
-        if (Main.debugMessagesOn) System.out.println("sort function called");
+        if (Main.debugMessagesOn) System.out.println("sort array function called");
 
         // organize the whole array as a heap
         heapify(array);
+        if (Main.debugMessagesOn) System.out.println("Heapify Sub Tree function called " + heapifySubTreeFunctionCallCounter+ " times");
 
         if (Main.debugMessagesOn) printArrayAsHeap(array);
 
@@ -28,6 +30,7 @@ public class HeapSort {
 
             swapChildWithParent(array, indexOfLastElement, 0);   // swap root and last element
 
+            if (Main.debugMessagesOn) System.out.println("swapped root and last element");
             if (Main.debugMessagesOn) printArrayAsHeap(array);
 
             sortedElements++;           // lock the sorted element
@@ -37,7 +40,15 @@ public class HeapSort {
 
         }
 
+        if (Main.debugMessagesOn) {
+            System.out.println();
+            System.out.println("ARRAY SORTED");
+            System.out.println("Heapify Sub Tree function called total of " + heapifySubTreeFunctionCallCounter+ " times");
+            System.out.println();
+        }
 
+        System.out.println("****************   Heapify Sub Tree function called TOTAL OF __ " + heapifySubTreeFunctionCallCounter+ " __ times   **************** ");
+        System.out.println("*****************************************   To sort array of __ " + sortedElements + " __ elements   ************* ");
         return array;
     }
 
@@ -53,11 +64,12 @@ public class HeapSort {
         // for every sub-Tree from last to first...
         for (int t = currentSubTree; t > 0; t--) {
             // ... heapify subtree
-            heapifySubTree(array, currentSubTree - 1);          // parent index   =    tree index - 1
+            heapifySubTree(array, t - 1);          // parent index   =    tree index - 1
 
-
+            if (Main.debugMessagesOn) System.out.println("Hepified subTree " + t);
+            if (Main.debugMessagesOn) printArrayAsHeap(array);
         }
-
+        if (Main.debugMessagesOn) System.out.println("HEAPIFY COMPLETE");
     return array;
     }
 
@@ -67,7 +79,8 @@ public class HeapSort {
     // heapify sub-tree recursively to fix conflicts asap
     private static int[] heapifySubTree(int[] array, int parentIndex) {
 
-        if (Main.debugMessagesOn) System.out.println("heapifySubTree function called");
+        heapifySubTreeFunctionCallCounter++;
+        if (Main.debugMessagesOn) System.out.println("heapifySubTree function called for subTree with parent index " + parentIndex);
 
         int leftChildIndex = findLeftChildIndex(parentIndex);
         int rightChildIndex = findRightChildIndex(parentIndex);
@@ -91,6 +104,7 @@ public class HeapSort {
 
                 // fix potential conflicts
                 if(checkForConflict(array, parentIndex * 2 + 1)) {
+                    if (Main.debugMessagesOn) System.out.println("conflict in subTree with parent index " + (parentIndex * 2 + 1) );
                     heapifySubTree(array, parentIndex * 2 + 1);
                 }
 
@@ -100,6 +114,7 @@ public class HeapSort {
 
                 // fix potential conflicts
                 if (checkForConflict(array, parentIndex * 2 + 2)) {
+                    if (Main.debugMessagesOn) System.out.println("conflict in subTree with parent index " + (parentIndex * 2 + 2) );
                     heapifySubTree(array, parentIndex * 2 + 2);
                 }
             }
@@ -205,7 +220,6 @@ public class HeapSort {
 
     // print heap
     public static void printArrayAsHeap(int[] array) {
-        System.out.println();
         System.out.println("printing array as a binary heap tree:");
 
         double row = 1;
@@ -225,8 +239,8 @@ public class HeapSort {
             }
         }
 
-
         System.out.println();
+            System.out.println();
     }
 
 
