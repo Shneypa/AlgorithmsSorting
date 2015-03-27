@@ -64,32 +64,33 @@ public class Main {
     public static int operations = 0;
     public static boolean countOperations = true;
 
-    public static final boolean debugMessagesOn = false;
+    public static final boolean debugMessagesOn = true;
     public static final boolean showIterations = false;
                                                         //
 
 
     public static void main(String[] args) {
 
+
+
         // create array
-        int[] array = ArrayManager.generateRandomArray(ARRAY_LENGTH);
-        //int[] array = {3,1,3,4,2,8,11,12,5,6};                      // manual array for debugging
+        //int[] array = ArrayManager.generateRandomArray(ARRAY_LENGTH);
+        int[] array = {3,1,4,5,7,8,4};                      // manual array for debugging
 
         // print unsorted array
         System.out.println("Unsorted array:");
         ArrayManager.print(array);
-        // print unsorted array as a heap:
-        HeapSort.printArrayAsHeap(array);
+
 
         // *** APPLY SORTING ALGORITHM ***
-        array = HeapSort.sort(array);
+
+        // recursively break array into 1-element arrays
+        MergeSort.breakDown(array);
 
         // print sorted array
-        System.out.println();
-        System.out.println("Sorted array:");
-        ArrayManager.print(array);
-        // print sorted array as a heap:
-        HeapSort.printArrayAsHeap(array);
+        //System.out.println();
+        //System.out.println("Sorted array:");
+        //ArrayManager.print(array);
 
 
 /*

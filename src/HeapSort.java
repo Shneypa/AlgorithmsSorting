@@ -5,6 +5,14 @@
 
 // rows = log2 ( array.length + 1 )
 
+//
+
+// TODO: refactor this class into 2 classes:
+//  HeapManager  to do heapify and subTree sorting
+//  HeapSort    to sort array using HeapManager
+
+// TODO: rewrite HeapSort in a simpler code
+
 
 public class HeapSort {
 
