@@ -54,6 +54,10 @@
     10. при дебаггинге IntelliJ каждый раз создает новый процесс Main.
     а мне надо, чтобы она просто перезапускала. (сейчас приходится вручную нажимать каждый раз  Stop 'Main'
 
+    11. Использование одинаковых названий чем-то чревато?  (например, все функции используют параметр array)
+
+
+
 */
 
 public class Main {
@@ -64,7 +68,7 @@ public class Main {
     public static int operations = 0;
     public static boolean countOperations = true;
 
-    public static final boolean debugMessagesOn = true;
+    public static final boolean debugMessagesOn = false;
     public static final boolean showIterations = false;
                                                         //
 
@@ -74,8 +78,8 @@ public class Main {
 
 
         // create array
-        //int[] array = ArrayManager.generateRandomArray(ARRAY_LENGTH);
-        int[] array = {3,1,4,5,7,8,4};                      // manual array for debugging
+        int[] array = ArrayManager.generateRandomArray(ARRAY_LENGTH);
+        //int[] array = {3,1,4,5,8,9,2,3,4,6,7,0};                      // manual array for debugging
 
         // print unsorted array
         System.out.println("Unsorted array:");
@@ -84,13 +88,13 @@ public class Main {
 
         // *** APPLY SORTING ALGORITHM ***
 
-        // recursively break array into 1-element arrays
-        MergeSort.breakDown(array);
+        // recursively break array into 1-element arrays then merge them while sorting
+        array = MergeSort.breakDownAndMergeSort(array);
 
         // print sorted array
-        //System.out.println();
-        //System.out.println("Sorted array:");
-        //ArrayManager.print(array);
+        System.out.println();
+        System.out.println("Sorted array:");
+        ArrayManager.print(array);
 
 
 /*
