@@ -3,16 +3,8 @@
 public class MergeSort {
 
 
-    public static int[] sort(int[] array) {
-
-
-
-
-        return array;
-    }
-
-    // recursively break down array
-    public static int[] breakDownAndMergeSort(int[] parentArray) {
+     // recursively break down array
+    public static int[] sort(int[] parentArray) {
 
         // if we broke down to 1-element array, stop recursive breakdown and start merging...
         if ( parentArray.length == 1 ) {
@@ -44,10 +36,10 @@ public class MergeSort {
         }
 
         // break down left array
-        leftArray = breakDownAndMergeSort(leftArray);
+        leftArray = sort(leftArray);
 
         // breakdown right array
-        rightArray = breakDownAndMergeSort(rightArray);
+        rightArray = sort(rightArray);
 
         // Merge two sub-arrays into one sorted array
         parentArray = mergeArrays(leftArray, rightArray);
