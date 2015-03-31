@@ -10,31 +10,26 @@
     // 3. Iterate through original array, putting elements into proper positions and decresing histogram count by 1.
 
 
-
+import java.lang.reflect.Array;
 
 public class CountingSort {
 
     public static int[] sort(int[] array) {
 
+        // find max value in array (this will be last ID in histograms array)
+        int max = ArrayManager.findMax(array);
+
         // count frequencies
-        int[] histogram = new int[array.length];        // temporary solution !!! (how to find length of new array? )
-                                                        // values.length = max(array)
+        int[] histogram = new int[max+1];
+
         for (int i = 0; i < array.length; i++) {
             histogram[array[i]]++;                      // count how many times value appears in array
         }
-
-        System.out.println("Histogram Array:");
-        ArrayManager.print(histogram);
 
         // cummulative count                            // e.g.: last '3' is in position 7 (index 6)
         for (int i = 1; i < histogram.length; i++) {
             histogram[i] += histogram[i-1];
         }
-
-        System.out.println("Cummulative histogram Array:");
-        ArrayManager.print(histogram);
-
-
 
         // translate into sorted array (from last to first element in original array
         int[] sortedArray = new int[array.length];
@@ -51,8 +46,6 @@ public class CountingSort {
 
             histogram[value]--;               // decrease count in cummulative histogram (because we took care of 1 element)
         }
-
-
 
         return sortedArray;
     }

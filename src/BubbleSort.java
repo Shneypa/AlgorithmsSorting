@@ -19,7 +19,7 @@ public class BubbleSort {
        }
 
 
-       while(!ArrayManager.isSorted(array)) {
+       while(!ArrayManager.isSorted(array)) {               // TODO: clear this unnecessary check
 
             if (Main.showIterations == true) System.out.println("inner loop:");
 

@@ -49,4 +49,34 @@ public class ArrayManager {
         return true;
     }
 
+
+    // finds MAX value in array
+    public static int findMax(int[] array) {
+
+        int currentMax = array[0];
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > currentMax) {
+                currentMax = array[i];
+            }
+        }
+
+        return currentMax;
+    }
+
+
+    // finds MIN value in array
+    public static int findMin(int[] array) {
+
+        int currentMin = array[0];
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < currentMin) {
+                currentMin = array[i];
+            }
+        }
+
+        return currentMin;
+    }
+
 }
