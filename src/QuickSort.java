@@ -18,15 +18,25 @@ public class QuickSort {
     private static int pIndex = 0;
 
 
+    public static int[] sort(int[] array) {
 
-    public static int[] sort(int[] array, int start, int end) {
+        // pass full array into the sorting function
+        array = sortPart(array, 0, array.length - 1);
+
+        return array;
+    }
+
+
+
+
+    public static int[] sortPart(int[] array, int start, int end) {
 
         // if array is 1 element long, exit function
         if (start >= end) return array;
 
-       array = partition(array, start, end);
-       sort(array, start, pIndex - 1);
-       sort(array, pIndex + 1, end);
+        array = partition(array, start, end);
+        sortPart(array, start, pIndex - 1);
+        sortPart(array, pIndex + 1, end);
 
         return array;
     }
