@@ -34,7 +34,7 @@
 
 public class Main {
 
-    public static final int ARRAY_LENGTH = 1000000;           // change this value to play around with array size.
+    public static final int ARRAY_LENGTH = 100;           // change this value to play around with array size.
 
     //              utility variables:
     public static int operations = 0;
@@ -57,7 +57,7 @@ public class Main {
 
         // create array
         int[] array = ArrayManager.generateRandomArray(ARRAY_LENGTH);
-        // int[] array = {3,1,4,5,2,2,3,3,3,9,1,2,3,10,6,7};                      // manual array for debugging
+        // int[] array = {3,1,4,5,5,3,7,8,0,2};                      // manual array for debugging
 
         // print unsorted array
         System.out.println("Unsorted array:");
@@ -65,7 +65,7 @@ public class Main {
 
 
         // *** APPLY SORTING ALGORITHM ***
-        array = CountingSort.sort(array);
+        array = CombSort.sort(array);
 
         // print sorted array
         System.out.println();
