@@ -53,28 +53,34 @@ public class Main {
 
 
     private static void singleTest() {
-        long startTime = System.currentTimeMillis();
+
+        long startTimeWithPrinting = System.currentTimeMillis();
 
         // create array
         int[] array = ArrayManager.generateRandomArray(ARRAY_LENGTH);
-        // int[] array = {3,1,4,5,5,3,7,8,0,2};                      // manual array for debugging
+        // int[] array = {313,621,834,435,845,855,417,18,810,12};                      // manual array for debugging
 
         // print unsorted array
         System.out.println("Unsorted array:");
-        //ArrayManager.print(array);
+        ArrayManager.print(array);
 
+        long startTimeAlgorithm = System.currentTimeMillis();
 
         // *** APPLY SORTING ALGORITHM ***
-        array = CombSort.sort(array);
+        array = RadixSort.sort(array);
+
+        long timeTakenForAlgorithm = System.currentTimeMillis() - startTimeAlgorithm;
 
         // print sorted array
         System.out.println();
         System.out.println("Sorted array:");
-        //ArrayManager.print(array);
+        ArrayManager.print(array);
 
         // time taken in milliseconds
-        long timeTaken = System.currentTimeMillis() - startTime;
-        System.out.println("Time taken: " + timeTaken + " ms for " + ARRAY_LENGTH + " elements");
+        long timeTakenWithPrintingTwice = System.currentTimeMillis() - startTimeWithPrinting;
+        System.out.println();
+        System.out.println("Time for algorithm:   " + timeTakenForAlgorithm + " ms for " + array.length + " elements");
+
 
 
 /*
