@@ -15,21 +15,22 @@ public class RadixSort {
 
     private static ArrayList<LinkedList> ListHolder = new ArrayList();
 
-    private static int numberOfPasses = 5;              // number of passes (length of numbers)
-
+    private static int numberOfPasses = 6;              // number of passes (length of numbers)
+    private static int radix = 10;                      // base of numerical system. 10 for decimal, 2 for binary, 16 for hex, etc...
+                                                        // *** only works for 10 at the moment ***
 
     public static int[] sort(int[] array) {
 
         // fill ListHolder with 10  buckets ( LinkedLists )
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < radix; i++) {
 
             ListHolder.add(new LinkedList<Integer>());
 
         }
 
 
-        int m = 10;         // to find remainder
+        int m = radix;      // to find remainder
         int k = 1;          // to find appropriate digit in remainder
 
 
@@ -53,7 +54,7 @@ public class RadixSort {
             int i = 0;
             LinkedList<Integer> currentList;
 
-            for (int l = 0; l < 10; l++) {
+            for (int l = 0; l < radix; l++) {
 
                 currentList = ListHolder.get(l);
 
@@ -67,8 +68,8 @@ public class RadixSort {
 
 
             // 3. at the end of the pass, increase m and k to move to next digit
-            m *= 10;
-            k *= 10;
+            m *= radix;
+            k *= radix;
 
         }
 

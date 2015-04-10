@@ -34,7 +34,7 @@
 
 public class Main {
 
-    public static final int ARRAY_LENGTH = 100;           // change this value to play around with array size.
+    public static final int ARRAY_LENGTH = 1000000;           // change this value to play around with array size.
 
     //              utility variables:
     public static int operations = 0;
@@ -58,16 +58,18 @@ public class Main {
 
         // create array
         int[] array = ArrayManager.generateRandomArray(ARRAY_LENGTH);
-        // int[] array = {313,621,834,435,845,855,417,18,810,12};                      // manual array for debugging
+        // int[] array = {15,15,33,11,17,99,17};                      // manual array for debugging
 
         // print unsorted array
         System.out.println("Unsorted array:");
-        ArrayManager.print(array);
+        // ArrayManager.print(array);
 
         long startTimeAlgorithm = System.currentTimeMillis();
 
         // *** APPLY SORTING ALGORITHM ***
-        array = RadixSort.sort(array);
+        array = BucketSort.sort(array);
+
+
 
         long timeTakenForAlgorithm = System.currentTimeMillis() - startTimeAlgorithm;
 
@@ -82,18 +84,6 @@ public class Main {
         System.out.println("Time for algorithm:   " + timeTakenForAlgorithm + " ms for " + array.length + " elements");
 
 
-
-/*
-        // print how many operations it took
-        System.out.println();
-        System.out.println("Operations: " + Main.operations);
-        System.out.println();
-
-        // calculate number of rows in a heap
-        System.out.println("Array as heap:  number of rows (tree depth): " + HeapSort.findNumberOfRowsInHeap(array));
-        System.out.println();
-
-        */
 
         // TODO: Automate time complexity table
     }
